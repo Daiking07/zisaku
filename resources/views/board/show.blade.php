@@ -6,7 +6,17 @@
                 <p>掲示板</p>
             </div>
         </div>
-        <div class="d-flex justify-content-between">
+        <div>
+            @if(Auth::user()->role == 0)
+            <div class="d-flex ml-3 mt-4">
+                <div>
+                    <a href="{{route('boards.edit',$board->id)}}" class="btn btn-secondary btn-lg mx-2">掲示板編集</a>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#modal1">掲示板削除</button>
+                </div>
+            </div>
+            @endif
             <div class="h5">
                 <div>
                         <p>{{ \Carbon\Carbon::parse($board->created_at)->format('Y ねん n がつ j にち ').$week.' よう日' }}</p>
@@ -15,22 +25,12 @@
                         <p>{{ $board->title }}</p>
                     </div>
                 </div>
-                <div style="width:50rem; height:25rem;" class="box15 py-5">
+                <div style="width:600px; height:200px" class="box15 py-5">
                     <ul>
                         <p>{!! nl2br($board->comment)!!}</p>
                     </ul>
                 </div>
             </div>
-            @if(Auth::user()->role == 0)
-            <div class="d-flex ml-3 mt-4">
-                <div>
-                    <a href="{{route('boards.edit',$board->id)}}" class="btn btn-secondary btn-lg mx-2">掲示板編集</a>
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-danger btn-lg"　data-toggle="modal" data-target="#modal1">掲示板削除</button>
-                </div>
-            </div>
-            @endif
         </div>
         <div class="d-flex justify-content-around h5">
             <a class="p-3 mb-2 bg-info text-white img-thumbnail" href="{{route('boards.index')}}">戻る</a>

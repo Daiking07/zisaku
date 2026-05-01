@@ -37,8 +37,25 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
+// 保護者登録画面を表示
+Route::get('/children/create', 'ChildController@create')->name('children.create');
+// 保護者登録(施設登録)
+Route::post('/children', 'ChildController@store')->name('children.store');
+// -----------------------------------------------------------------------------------------------
 
-    Auth::routes();
+// 施設登録画面を表示
+Route::get('/schools/create', 'SchoolController@create')->name('schools.create');
+// 施設登録(施設登録)
+Route::post('/schools', 'SchoolController@store')->name('schools.store');
+// -------------------------------------------------------------------------------------------------------------
+// 退会完了を表示
+Route::view('/deleted','delete.delete')->name('deleted');
+
+// Login画面
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
 Route::middleware('auth')->group(function () {
     
     // ユーザ登録機能をオフに切替
@@ -142,19 +159,3 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/index/{id}', 'SchoolController@getUsersBySearchName'); // url: '/user/index/' + userNameと同じ
 
 });
-// 保護者登録画面を表示
-Route::get('/children/create', 'ChildController@create')->name('children.create');
-// 保護者登録(施設登録)
-Route::post('/children', 'ChildController@store')->name('children.store');
-// -----------------------------------------------------------------------------------------------
-
-// 施設登録画面を表示
-Route::get('/schools/create', 'SchoolController@create')->name('schools.create');
-// 施設登録(施設登録)
-Route::post('/schools', 'SchoolController@store')->name('schools.store');
-// -------------------------------------------------------------------------------------------------------------
-// 退会完了を表示
-Route::view('/deleted','delete.delete')->name('deleted');
-
-// Login画面
-Route::get('/home', 'HomeController@index')->name('home');
